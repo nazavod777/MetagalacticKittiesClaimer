@@ -4,7 +4,7 @@ from os import system
 from urllib3 import disable_warnings
 from loguru import logger
 from platform import system as platform_system
-from sys import stderr
+from sys import stderr, platform
 from web3.auto import w3
 from os.path import exists
 from aiohttp_proxy import ProxyConnector
@@ -111,7 +111,9 @@ def wrapper(data):
 
 
 if __name__ == '__main__':
-    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+    if platform == 'win32':
+        asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+
     progress = 0
     system('title ' + str(progress))
     clear()
